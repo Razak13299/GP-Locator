@@ -81,6 +81,7 @@ function usePostcode() {
 
 // Display nearest GP practices and update the map
 // Display nearest GP practices and update the map
+// Display nearest GP practices and update the map
 function showNearestPractices(position) {
     const userLat = position.coords.latitude;
     const userLng = position.coords.longitude;
@@ -103,19 +104,24 @@ function showNearestPractices(position) {
                 <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
             </li>`;
 
-        // Add marker to map for GP location with a clickable link to Google Maps
+        // Create Google Maps marker
         const marker = new google.maps.Marker({
             position: { lat: gp.lat, lng: gp.lng },
             map: map,
             title: gp.name,
         });
 
-        // Add a click listener to each marker
+        // Create an InfoWindow for each marker
         const mapsLink = `https://www.google.com/maps/dir/?api=1&destination=${gp.lat},${gp.lng}`;
         const infoWindow = new google.maps.InfoWindow({
-            content: `<strong>${gp.name}</strong><br>${gp.address}<br><a href="${mapsLink}" target="_blank">Open in Google Maps</a>`
+            content: `<div style="text-align: center;">
+                        <strong>${gp.name}</strong><br>
+                        ${gp.address}<br>
+                        <a href="${mapsLink}" target="_blank" style="color: blue; text-decoration: underline;">Open in Google Maps</a>
+                      </div>`
         });
 
+        // Attach click event to open InfoWindow
         marker.addListener("click", () => {
             infoWindow.open(map, marker);
         });
