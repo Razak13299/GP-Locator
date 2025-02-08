@@ -80,19 +80,17 @@ function usePostcode() {
 }
 
 // Display nearest GP practices and update the map
-function showNearestPractices() {
-    if (!userLat || !userLng) {
-        alert("Location not detected. Please enter a postcode or allow location access.");
-        return;
-    }
+// Display nearest GP practices and update the map
+function showNearestPractices(position) {
+    const userLat = position.coords.latitude;
+    const userLng = position.coords.longitude;
 
     let sortedGPs = gpPractices.map(gp => {
         gp.distance = calculateDistance(userLat, userLng, gp.lat, gp.lng);
         return gp;
     }).sort((a, b) => a.distance - b.distance);
 
-    // **Ensure only the top 3 nearest GPs are displayed**
-    let top3GPs = sortedGPs.slice(0, 3);
+    let top3GPs = sortedGPs.slice(0, 3); // Ensure only top 3 GPs are displayed
 
     let resultsHTML = `<h4 class="text-center">Top 3 Nearest GP Practices</h4>`;
     resultsHTML += `<ul class="list-group">`;
@@ -102,30 +100,38 @@ function showNearestPractices() {
             <li class="list-group-item">
                 <strong>${gp.name}</strong> - ${gp.address} <br>
                 📍 <b>Distance:</b> ${gp.distance.toFixed(2)} miles
-                <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" 
-                   target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
+                <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
             </li>`;
 
-        // Add marker to map for GP location
-        new google.maps.Marker({
+        // Add marker to map for GP location with a clickable link to Google Maps
+        const marker = new google.maps.Marker({
             position: { lat: gp.lat, lng: gp.lng },
             map: map,
             title: gp.name,
+        });
+
+        // Add a click listener to each marker
+        const mapsLink = `https://www.google.com/maps/dir/?api=1&destination=${gp.lat},${gp.lng}`;
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<strong>${gp.name}</strong><br>${gp.address}<br><a href="${mapsLink}" target="_blank">Open in Google Maps</a>`
+        });
+
+        marker.addListener("click", () => {
+            infoWindow.open(map, marker);
         });
     });
 
     resultsHTML += `</ul>`;
     document.getElementById('results').innerHTML = resultsHTML;
 
-    // Set user location marker on map
-    new google.maps.Marker({
+    // Set user location on map
+    const userMarker = new google.maps.Marker({
         position: { lat: userLat, lng: userLng },
         map: map,
-        title: usingPostcode ? "Entered Postcode" : "Your Location",
+        title: "You are here",
         icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
     });
 
     map.setCenter({ lat: userLat, lng: userLng });
     map.setZoom(14);
 }
-
