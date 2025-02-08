@@ -54,32 +54,29 @@ function getLocation() {
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
- function usePostcode() {
+function usePostcode() {
     const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
     const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc'; 
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&key=${apiKey}`;
 
-    console.log("Fetching URL:", geocodeUrl);  // 🔍 DEBUGGING: Check if API URL is correct
-
     fetch(geocodeUrl)
-        .then(response => response.json())
-        .then(data => {
-            console.log("API Response:", data); // 🔍 DEBUGGING: Show API response in console
-
-            if (data.status === "OK") {
-                let location = data.results[0].geometry.location;
-                userLat = location.lat;
-                userLng = location.lng;
-                usingPostcode = true;
-                console.log("Exact Postcode Used:", userLat, userLng);
-                showNearestPractices({ coords: { latitude: userLat, longitude: userLng } });
-            } else {
-                alert('Postcode not found. Please enter a valid UK postcode.');
-            }
-        })
-        .catch(error => console.error('Geocode API error:', error));
+    .then(response => response.json())
+    .then(data => {
+        console.log("API Response:", data);
+        if (data.status === "OK") {
+            let location = data.results[0].geometry.location;
+            userLat = location.lat;
+            userLng = location.lng;
+            usingPostcode = true;
+            console.log("Exact Postcode Used:", userLat, userLng);
+            showNearestPractices({ coords: { latitude: userLat, longitude: userLng } });
+        } else {
+            alert('Postcode not found. Please enter a valid UK postcode.');
+        }
+    })
+    .catch(error => console.error('Geocode API error:', error));
 }
 
 // Display nearest GP practices and update the map
@@ -131,3 +128,4 @@ function showNearestPractices() {
     map.setCenter({ lat: userLat, lng: userLng });
     map.setZoom(14);
 }
+
