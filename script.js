@@ -54,20 +54,31 @@ function getLocation() {
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
- function usePostcode() {
+function usePostcode() {
     const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
-    const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc';
+    const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&region=GB&key=${apiKey}`;
 
     fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
             if (data.status === "OK") {
-                userLat = data.results[0].geometry.location.lat;
-                userLng = data.results[0].geometry.location.lng;
-                usingPostcode = true; // Mark that we're using a manually entered postcode
+                let bestMatch = data.results[0];
+                let formattedAddress = bestMatch.formatted_address;
+
+                // Extract postcode from API response
+                let postcodeMatch = formattedAddress.match(/\b[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}\b/i);
+                let extractedPostcode = postcodeMatch ? postcodeMatch[0] : postcode;
+
+                userLat = bestMatch.geometry.location.lat;
+                userLng = bestMatch.geometry.location.lng;
+                usingPostcode = true; // Mark that we're using an entered postcode
+
+                console.log("Extracted Postcode:", extractedPostcode);
+                console.log("Exact Location Used:", userLat, userLng);
+
                 showNearestPractices();
             } else {
                 alert('Postcode not found. Please enter a valid UK postcode.');
