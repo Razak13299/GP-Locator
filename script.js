@@ -76,10 +76,13 @@ function showNearestPractices(position) {
         return gp;
     }).sort((a, b) => a.distance - b.distance);
 
-    let resultsHTML = `<h4 class="text-center">Nearest GP Practices</h4>`;
+    // **Show only the top 3 closest GPs**
+    let top3GPs = sortedGPs.slice(0, 3);
+
+    let resultsHTML = `<h4 class="text-center">Top 3 Nearest GP Practices</h4>`;
     resultsHTML += `<ul class="list-group">`;
 
-    sortedGPs.forEach(gp => {
+    top3GPs.forEach(gp => {
         resultsHTML += `
             <li class="list-group-item">
                 <strong>${gp.name}</strong> - ${gp.address} <br>
