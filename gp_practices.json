@@ -8,32 +8,32 @@
     {
         "name": "Brownlow Health @ Marybone",
         "address": "2 Vauxhall Road, Liverpool, L3 2BG",
-        "lat": 53.41127914044213, 
-        "lng": -2.987736446761892
+        "lat": 53.411695030592504,
+        "lng": -2.987811863368354
     },
     {
         "name": "Brownlow Health Central",
         "address": "Pembroke Place, Liverpool, L69 3GF",
-        "lat": 53.40893913400531, 
-        "lng": -2.9655979383441635
+        "lat": 53.40908980122475,
+        "lng": -2.9677018735288008
     },
     {
         "name": "Brownlow Health @ Kensington Park",
         "address": "157 Edge Lane, Liverpool, L7 2PF",
-        "lat": 53.40889944522883, 
-        "lng": -2.9479693758652417
+        "lat": 53.41137725258615, 
+        "lng": -2.9489098676308316
     },
     {
         "name": "Vauxhall Health Centre",
         "address": "Lime Kiln Lane, Liverpool, L5 8XR",
-        "lat":53.419839089501814, 
-        "lng": -2.9822225616235825
+        "lat":53.42069566932894, 
+        "lng": -2.9845450470060473
     },
     {
         "name": "St James Health Centre",
         "address": "29 Great George Square, Liverpool, L1 5DZ",
-        "lat":  53.398779055736284, 
-        "lng":  -2.9763709775429525
+        "lat":  53.39859149510841, 
+        "lng":  -2.9790997774314265
     },
     {
         "name": "Abercromby Family Practice",
