@@ -91,7 +91,7 @@ function showNearestPractices(position) {
         return gp;
     }).sort((a, b) => a.distance - b.distance);
 
-    let top3GPs = sortedGPs.slice(0, 3); // Ensure only top 3 GPs are displayed
+    let top3GPs = sortedGPs.slice(0, 3); // Show only top 3 nearest GPs
 
     let resultsHTML = `<h4 class="text-center">Top 3 Nearest GP Practices</h4>`;
     resultsHTML += `<ul class="list-group">`;
@@ -101,7 +101,8 @@ function showNearestPractices(position) {
             <li class="list-group-item">
                 <strong>${gp.name}</strong> - ${gp.address} <br>
                 📍 <b>Distance:</b> ${gp.distance.toFixed(2)} miles
-                <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
+                <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" 
+                   target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
             </li>`;
 
         // Create Google Maps marker
@@ -111,19 +112,9 @@ function showNearestPractices(position) {
             title: gp.name,
         });
 
-        // Create an InfoWindow for each marker
-        const mapsLink = `https://www.google.com/maps/dir/?api=1&destination=${gp.lat},${gp.lng}`;
-        const infoWindow = new google.maps.InfoWindow({
-            content: `<div style="text-align: center;">
-                        <strong>${gp.name}</strong><br>
-                        ${gp.address}<br>
-                        <a href="${mapsLink}" target="_blank" style="color: blue; text-decoration: underline;">Open in Google Maps</a>
-                      </div>`
-        });
-
-        // Attach click event to open InfoWindow
+        // Redirect to Google Maps on marker click
         marker.addListener("click", () => {
-            infoWindow.open(map, marker);
+            window.open(`https://www.google.com/maps/dir/?api=1&destination=${gp.lat},${gp.lng}`, "_blank");
         });
     });
 
@@ -131,7 +122,7 @@ function showNearestPractices(position) {
     document.getElementById('results').innerHTML = resultsHTML;
 
     // Set user location on map
-    const userMarker = new google.maps.Marker({
+    new google.maps.Marker({
         position: { lat: userLat, lng: userLng },
         map: map,
         title: "You are here",
