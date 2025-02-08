@@ -33,23 +33,37 @@ function initMap() {
 
 // Get user's current location
 function getLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                userLat = position.coords.latitude;
-                userLng = position.coords.longitude;
-                usingPostcode = false; // Mark that we are using GPS
-                showNearestPractices(); // Update GP list
-            },
-            error => {
-                alert("Geolocation failed. Please allow location access and try again.");
-                console.error("Geolocation Error:", error);
-            }
-        );
-    } else {
-        alert("Geolocation is not supported by this browser.");
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
     }
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            console.log("User Location Detected:", position.coords);
+            showNearestPractices(position);
+        },
+        (error) => {
+            console.error("Geolocation Error:", error);
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("Location access is blocked. Enable location permissions in browser settings.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable. Try again later.");
+                    break;
+                case error.TIMEOUT:
+                    alert("Location request timed out. Move to an open space and try again.");
+                    break;
+                default:
+                    alert("Unknown error occurred while getting location.");
+                    break;
+            }
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
 }
+
 
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
@@ -91,7 +105,7 @@ function showNearestPractices(position) {
         return gp;
     }).sort((a, b) => a.distance - b.distance);
 
-    let top3GPs = sortedGPs.slice(0, 3); // Show only top 3 nearest GPs
+    let top3GPs = sortedGPs.slice(0, 3); // Show only top 3 nearest GPsg
 
     let resultsHTML = `<h4 class="text-center">Top 3 Nearest GP Practices</h4>`;
     resultsHTML += `<ul class="list-group">`;
