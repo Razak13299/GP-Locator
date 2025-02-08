@@ -34,11 +34,23 @@ function initMap() {
 // Get user's current location
 function getLocation() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showNearestPractices, showError);
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                userLat = position.coords.latitude;
+                userLng = position.coords.longitude;
+                usingPostcode = false; // Mark that we are using GPS
+                showNearestPractices(); // Update GP list
+            },
+            error => {
+                alert("Geolocation failed. Please allow location access and try again.");
+                console.error("Geolocation Error:", error);
+            }
+        );
     } else {
         alert("Geolocation is not supported by this browser.");
     }
 }
+
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
@@ -65,10 +77,10 @@ function getLocation() {
 }
 
 // Display nearest GP practices and update the map
-function showNearestPractices(position) {
-    if (!usingPostcode) { // If user hasn't entered a postcode, use GPS
-        userLat = position.coords.latitude;
-        userLng = position.coords.longitude;
+function showNearestPractices() {
+    if (!userLat || !userLng) {
+        alert("Location not detected. Please enter a postcode or allow location access.");
+        return;
     }
 
     let sortedGPs = gpPractices.map(gp => {
@@ -76,7 +88,7 @@ function showNearestPractices(position) {
         return gp;
     }).sort((a, b) => a.distance - b.distance);
 
-    // **Show only the top 3 closest GPs**
+    // **Ensure only the top 3 nearest GPs are displayed**
     let top3GPs = sortedGPs.slice(0, 3);
 
     let resultsHTML = `<h4 class="text-center">Top 3 Nearest GP Practices</h4>`;
@@ -102,7 +114,7 @@ function showNearestPractices(position) {
     resultsHTML += `</ul>`;
     document.getElementById('results').innerHTML = resultsHTML;
 
-    // Set user location on map
+    // Set user location marker on map
     new google.maps.Marker({
         position: { lat: userLat, lng: userLng },
         map: map,
@@ -113,3 +125,4 @@ function showNearestPractices(position) {
     map.setCenter({ lat: userLat, lng: userLng });
     map.setZoom(14);
 }
+
