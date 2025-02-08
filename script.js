@@ -59,32 +59,25 @@ function usePostcode() {
     if (!postcode) return alert("Please enter a postcode!");
 
     const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc';
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&region=GB&key=${apiKey}`;
+    const placesUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(postcode)}&inputtype=textquery&fields=geometry,formatted_address&key=${apiKey}`;
 
-    fetch(geocodeUrl)
+    fetch(placesUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.status === "OK") {
-                let bestMatch = data.results[0];
-                let formattedAddress = bestMatch.formatted_address;
-
-                // Extract postcode from API response
-                let postcodeMatch = formattedAddress.match(/\b[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}\b/i);
-                let extractedPostcode = postcodeMatch ? postcodeMatch[0] : postcode;
-
-                userLat = bestMatch.geometry.location.lat;
-                userLng = bestMatch.geometry.location.lng;
+            if (data.status === "OK" && data.candidates.length > 0) {
+                let place = data.candidates[0];
+                
+                userLat = place.geometry.location.lat;
+                userLng = place.geometry.location.lng;
                 usingPostcode = true; // Mark that we're using an entered postcode
 
-                console.log("Extracted Postcode:", extractedPostcode);
-                console.log("Exact Location Used:", userLat, userLng);
-
+                console.log("Exact Postcode Location Used:", userLat, userLng);
                 showNearestPractices();
             } else {
                 alert('Postcode not found. Please enter a valid UK postcode.');
             }
         })
-        .catch(error => console.error('Geocode API error:', error));
+        .catch(error => console.error('Places API error:', error));
 }
 
 // Display nearest GP practices and update the map
