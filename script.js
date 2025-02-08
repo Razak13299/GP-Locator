@@ -1,6 +1,8 @@
 let map;
 let gpPractices = [];
-let userLat, userLng;
+let userLat = null; // Store user-entered latitude
+let userLng = null; // Store user-entered longitude
+let usingPostcode = false; // Track if user entered a postcode
 
 // Load GP practices data from JSON file
 fetch('gp_practices.json')
@@ -40,22 +42,21 @@ function getLocation() {
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
-
-function usePostcode() {
+ function usePostcode() {
     const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
-    const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+    const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc';
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&region=GB&key=${apiKey}`;
 
     fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
             if (data.status === "OK") {
-                const { lat, lng } = data.results[0].geometry.location;
-                userLat = lat; // Store user's entered postcode coordinates
-                userLng = lng;
-                showNearestPractices({ coords: { latitude: lat, longitude: lng } });
+                userLat = data.results[0].geometry.location.lat;
+                userLng = data.results[0].geometry.location.lng;
+                usingPostcode = true; // Mark that we're using a manually entered postcode
+                showNearestPractices();
             } else {
                 alert('Postcode not found. Please enter a valid UK postcode.');
             }
@@ -65,7 +66,7 @@ function usePostcode() {
 
 // Display nearest GP practices and update the map
 function showNearestPractices(position) {
-    if (!userLat || !userLng) {
+    if (!usingPostcode) { // If user hasn't entered a postcode, use GPS
         userLat = position.coords.latitude;
         userLng = position.coords.longitude;
     }
@@ -102,7 +103,7 @@ function showNearestPractices(position) {
     new google.maps.Marker({
         position: { lat: userLat, lng: userLng },
         map: map,
-        title: "You are here",
+        title: usingPostcode ? "Entered Postcode" : "Your Location",
         icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
     });
 
