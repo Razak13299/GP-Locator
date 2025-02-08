@@ -54,30 +54,29 @@ function getLocation() {
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
-function usePostcode() {
+ function usePostcode() {
     const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
-    const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc';
-    const placesUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${encodeURIComponent(postcode)}&inputtype=textquery&fields=geometry,formatted_address&key=${apiKey}`;
+    const apiKey = 'YOUR_GOOGLE_API_KEY';  // Replace with your actual API key
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&key=${apiKey}`;
 
-    fetch(placesUrl)
+    fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.status === "OK" && data.candidates.length > 0) {
-                let place = data.candidates[0];
-                
-                userLat = place.geometry.location.lat;
-                userLng = place.geometry.location.lng;
-                usingPostcode = true; // Mark that we're using an entered postcode
+            console.log("Geocoding API Response:", data); // Debugging output
 
-                console.log("Exact Postcode Location Used:", userLat, userLng);
-                showNearestPractices();
+            if (data.status === "OK") {
+                const { lat, lng } = data.results[0].geometry.location;
+                console.log("Exact Postcode Location Used:", lat, lng);
+
+                showNearestPractices({ coords: { latitude: lat, longitude: lng } });
             } else {
                 alert('Postcode not found. Please enter a valid UK postcode.');
+                console.error("Geocode API error:", data.status, data.error_message);
             }
         })
-        .catch(error => console.error('Places API error:', error));
+        .catch(error => console.error('Geocode API error:', error));
 }
 
 // Display nearest GP practices and update the map
