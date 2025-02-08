@@ -1,21 +1,63 @@
 [
     {
-        "name": "Abercromby Family Practice",
-        "address": "70-80 Grove Street, Liverpool, L7 7HZ",
-        "lat": 53.4048,
-        "lng": -2.9661
+        "name": "CLPCN Hub",
+        "address": "81 London Road, Liverpool, L3 8JA",
+        "lat": 53.4095,
+        "lng": -2.9779
+    },
+    {
+        "name": "Brownlow Health @ Marybone",
+        "address": "2 Vauxhall Road, Liverpool, L3 2BG",
+        "lat": 53.4102,
+        "lng": -2.9895
     },
     {
         "name": "Brownlow Health Central",
-        "address": "26 Argyle Street, Liverpool, L1 5DL",
-        "lat": 53.4010,
-        "lng": -2.9795
+        "address": "Pembroke Place, Liverpool, L69 3GF",
+        "lat": 53.4072,
+        "lng": -2.9636
     },
     {
-        "name": "Brownlow Health Kensington",
-        "address": "157 Kensington, Liverpool, L7 2RJ",
-        "lat": 53.4116,
-        "lng": -2.9499
+        "name": "Brownlow Health @ Kensington Park",
+        "address": "157 Edge Lane, Liverpool, L7 2PF",
+        "lat": 53.4080,
+        "lng": -2.9360
+    },
+    {
+        "name": "Vauxhall Health Centre",
+        "address": "Lime Kiln Lane, Liverpool, L5 8XR",
+        "lat": 53.4250,
+        "lng": -2.9890
+    },
+    {
+        "name": "St James Health Centre",
+        "address": "29 Great George Square, Liverpool, L1 5DZ",
+        "lat": 53.4000,
+        "lng": -2.9790
+    },
+    {
+        "name": "Abercromby Family Practice",
+        "address": "Grove Street, Liverpool, L7 7HG",
+        "lat": 53.4020,
+        "lng": -2.9660
+    },
+    {
+        "name": "Brownlow Health @ Princes Park",
+        "address": "Bentley Road, Liverpool, L8 0SY",
+        "lat": 53.3930,
+        "lng": -2.9510
+    },
+    {
+        "name": "Dingle Park Practice",
+        "address": "Park Street, Liverpool, L8 6QP",
+        "lat": 53.3840,
+        "lng": -2.9700
+    },
+    {
+        "name": "The Elms Medical Centre",
+        "address": "3 The Elms, Liverpool, L8 3SS",
+        "lat": 53.3870,
+        "lng": -2.9490
     }
 ]
 
