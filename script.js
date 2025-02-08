@@ -54,22 +54,21 @@ function getLocation() {
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
  // Global variables to store user location
- function usePostcode() {
+function usePostcode() {
     const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
-    const apiKey = 'YOUR_GOOGLE_API_KEY';  // Replace with your actual API key
+    const apiKey = 'YOUR_GOOGLE_API_KEY'; 
     const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&key=${apiKey}`;
 
     fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
-            console.log("Geocoding API Response:", data); // Debugging output
+            console.log("API Response:", data); // Debugging output
 
             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
-                console.log("Exact Postcode Location Used:", lat, lng);
-
+                console.log("Exact Postcode Used:", lat, lng);
                 showNearestPractices({ coords: { latitude: lat, longitude: lng } });
             } else {
                 alert('Postcode not found. Please enter a valid UK postcode.');
