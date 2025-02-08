@@ -1,5 +1,6 @@
 let map;
 let gpPractices = [];
+let userLat, userLng;
 
 // Load GP practices data from JSON file
 fetch('gp_practices.json')
@@ -38,24 +39,25 @@ function getLocation() {
 }
 
 // Fetch coordinates from postcode using Google Maps Geocoding API
+ // Global variables to store user location
+
 function usePostcode() {
-    const postcode = document.getElementById('postcode').value;
+    const postcode = document.getElementById('postcode').value.trim();
     if (!postcode) return alert("Please enter a postcode!");
 
-    const apiKey = 'AIzaSyClMFnsj6O3PYNJk2UXz9iR5cynboX_7sc'; 
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&key=${apiKey}`;
+    const apiKey = 'YOUR_GOOGLE_MAPS_API_KEY';
+    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(postcode)}&region=GB&key=${apiKey}`;
 
     fetch(geocodeUrl)
         .then(response => response.json())
         .then(data => {
-            console.log("API Response:", data); // Debugging output
-
             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
+                userLat = lat; // Store user's entered postcode coordinates
+                userLng = lng;
                 showNearestPractices({ coords: { latitude: lat, longitude: lng } });
             } else {
-                alert('Postcode not found. Please enter a valid postcode.');
-                console.error("Geocode API error:", data.status, data.error_message);
+                alert('Postcode not found. Please enter a valid UK postcode.');
             }
         })
         .catch(error => console.error('Geocode API error:', error));
@@ -63,8 +65,10 @@ function usePostcode() {
 
 // Display nearest GP practices and update the map
 function showNearestPractices(position) {
-    const userLat = position.coords.latitude;
-    const userLng = position.coords.longitude;
+    if (!userLat || !userLng) {
+        userLat = position.coords.latitude;
+        userLng = position.coords.longitude;
+    }
 
     let sortedGPs = gpPractices.map(gp => {
         gp.distance = calculateDistance(userLat, userLng, gp.lat, gp.lng);
@@ -74,12 +78,13 @@ function showNearestPractices(position) {
     let resultsHTML = `<h4 class="text-center">Nearest GP Practices</h4>`;
     resultsHTML += `<ul class="list-group">`;
 
-    sortedGPs.forEach((gp, index) => {
+    sortedGPs.forEach(gp => {
         resultsHTML += `
             <li class="list-group-item">
                 <strong>${gp.name}</strong> - ${gp.address} <br>
                 📍 <b>Distance:</b> ${gp.distance.toFixed(2)} miles
-                <a href="https://www.google.com/maps/dir/?api=1&destination=${gp.lat},${gp.lng}" target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
+                <a href="https://www.google.com/maps/dir/?api=1&origin=${userLat},${userLng}&destination=${gp.lat},${gp.lng}" 
+                   target="_blank" class="btn btn-sm btn-outline-primary float-end">Get Directions</a>
             </li>`;
 
         // Add marker to map for GP location
@@ -103,9 +108,4 @@ function showNearestPractices(position) {
 
     map.setCenter({ lat: userLat, lng: userLng });
     map.setZoom(14);
-}
-
-// Handle errors
-function showError(error) {
-    alert(`Error: ${error.message}`);
 }
