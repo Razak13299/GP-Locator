@@ -1,0 +1,21 @@
+[
+    {
+        "name": "Abercromby Family Practice",
+        "address": "70-80 Grove Street, Liverpool, L7 7HZ",
+        "lat": 53.4048,
+        "lng": -2.9661
+    },
+    {
+        "name": "Brownlow Health Central",
+        "address": "26 Argyle Street, Liverpool, L1 5DL",
+        "lat": 53.4010,
+        "lng": -2.9795
+    },
+    {
+        "name": "Brownlow Health Kensington",
+        "address": "157 Kensington, Liverpool, L7 2RJ",
+        "lat": 53.4116,
+        "lng": -2.9499
+    }
+]
+
