@@ -2,62 +2,61 @@
     {
         "name": "CLPCN Hub",
         "address": "81 London Road, Liverpool, L3 8JA",
-        "lat": 53.4095,
-        "lng": -2.9779
+        "lat": 53.409710,
+        "lng": -2.970870
     },
     {
         "name": "Brownlow Health @ Marybone",
         "address": "2 Vauxhall Road, Liverpool, L3 2BG",
-        "lat": 53.4102,
-        "lng": -2.9895
+        "lat": 53.411370,
+        "lng": -2.987980
     },
     {
         "name": "Brownlow Health Central",
         "address": "Pembroke Place, Liverpool, L69 3GF",
-        "lat": 53.4072,
-        "lng": -2.9636
+        "lat": 53.408801,
+        "lng": -2.969578
     },
     {
         "name": "Brownlow Health @ Kensington Park",
         "address": "157 Edge Lane, Liverpool, L7 2PF",
-        "lat": 53.4080,
-        "lng": -2.9360
+        "lat": 53.407730,
+        "lng": -2.949930
     },
     {
         "name": "Vauxhall Health Centre",
         "address": "Lime Kiln Lane, Liverpool, L5 8XR",
-        "lat": 53.4250,
-        "lng": -2.9890
+        "lat": 53.4191,
+        "lng": -2.9945
     },
     {
         "name": "St James Health Centre",
         "address": "29 Great George Square, Liverpool, L1 5DZ",
-        "lat": 53.4000,
-        "lng": -2.9790
+        "lat":  53.4010,
+        "lng":  -2.9779
     },
     {
         "name": "Abercromby Family Practice",
         "address": "Grove Street, Liverpool, L7 7HG",
-        "lat": 53.4020,
-        "lng": -2.9660
+        "lat": 53.4025,
+        "lng": -2.9632
     },
     {
         "name": "Brownlow Health @ Princes Park",
         "address": "Bentley Road, Liverpool, L8 0SY",
-        "lat": 53.3930,
-        "lng": -2.9510
+        "lat": 53.3936,
+        "lng": -2.9498
     },
     {
         "name": "Dingle Park Practice",
         "address": "Park Street, Liverpool, L8 6QP",
-        "lat": 53.3840,
-        "lng": -2.9700
+        "lat": 53.3812,
+        "lng": -2.9675
     },
     {
         "name": "The Elms Medical Centre",
         "address": "3 The Elms, Liverpool, L8 3SS",
-        "lat": 53.3870,
-        "lng": -2.9490
+        "lat": 53.3880,
+        "lng": -2.9492
     }
 ]
-
