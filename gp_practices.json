@@ -2,61 +2,61 @@
     {
         "name": "CLPCN Hub",
         "address": "81 London Road, Liverpool, L3 8JA",
-        "lat": 53.409710,
-        "lng": -2.970870
+        "lat": 53.40959061046818, 
+        "lng": -2.9742633551214106
     },
     {
         "name": "Brownlow Health @ Marybone",
         "address": "2 Vauxhall Road, Liverpool, L3 2BG",
-        "lat": 53.411370,
-        "lng": -2.987980
+        "lat": 53.41127914044213, 
+        "lng": -2.987736446761892
     },
     {
         "name": "Brownlow Health Central",
         "address": "Pembroke Place, Liverpool, L69 3GF",
-        "lat": 53.408801,
-        "lng": -2.969578
+        "lat": 53.40893913400531, 
+        "lng": -2.9655979383441635
     },
     {
         "name": "Brownlow Health @ Kensington Park",
         "address": "157 Edge Lane, Liverpool, L7 2PF",
-        "lat": 53.407730,
-        "lng": -2.949930
+        "lat": 53.40889944522883, 
+        "lng": -2.9479693758652417
     },
     {
         "name": "Vauxhall Health Centre",
         "address": "Lime Kiln Lane, Liverpool, L5 8XR",
-        "lat": 53.4191,
-        "lng": -2.9945
+        "lat":53.419839089501814, 
+        "lng": -2.9822225616235825
     },
     {
         "name": "St James Health Centre",
         "address": "29 Great George Square, Liverpool, L1 5DZ",
-        "lat":  53.4010,
-        "lng":  -2.9779
+        "lat":  53.398779055736284, 
+        "lng":  -2.9763709775429525
     },
     {
         "name": "Abercromby Family Practice",
         "address": "Grove Street, Liverpool, L7 7HG",
-        "lat": 53.4025,
-        "lng": -2.9632
+        "lat": 53.39952307487167, 
+        "lng": -2.960060799721313
     },
     {
         "name": "Brownlow Health @ Princes Park",
         "address": "Bentley Road, Liverpool, L8 0SY",
-        "lat": 53.3936,
-        "lng": -2.9498
+        "lat": 53.39146584531103, 
+        "lng": -2.9518804076783662
     },
     {
         "name": "Dingle Park Practice",
         "address": "Park Street, Liverpool, L8 6QP",
-        "lat": 53.3812,
-        "lng": -2.9675
+        "lat": 53.38655715703573, 
+        "lng": -2.9726012337950047
     },
     {
         "name": "The Elms Medical Centre",
         "address": "3 The Elms, Liverpool, L8 3SS",
-        "lat": 53.3880,
-        "lng": -2.9492
+        "lat":53.38340881793462, 
+        "lng": -2.956788845207516
     }
 ]
