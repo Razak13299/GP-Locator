@@ -1,8 +1,8 @@
-📍 GP Locator - Find Your Nearest GP (CLPCN)
+GP Locator - Find Your Nearest GP (CLPCN)
 A GP Locator tool that helps users find their nearest General Practitioner (GP) practice within Central Liverpool Primary Care Network (CLPCN). It uses Google Maps API to fetch user locations, display the nearest GP practices, and provide directions.
 
 
-🚀 Features
+Features
 ✅ Find Nearest GP – Locate the closest GP based on current location or postcode.
 ✅ Google Maps Integration – Displays GP locations dynamically on a map.
 ✅ "Use My Current Location" Feature – Auto-detects user's position.
@@ -11,13 +11,13 @@ A GP Locator tool that helps users find their nearest General Practitioner (GP) 
 ✅ Displays Top 3 Nearest GPs – Instead of showing all locations.
 ✅ Mobile-Friendly UI – Works across desktop and mobile devices.
 
-🏗 Tech Stack
+Tech Stack
 Frontend: HTML, CSS (Bootstrap), JavaScript
 APIs: Google Maps API, Google Geocoding API, Google Directions API
 Data: gp_practices.json (Stores GP locations)
 Deployment: GitHub Pages
 
-🔍 File Structure
+File Structure
 
 GP-Locator/
 │── index.html            # Main webpage
